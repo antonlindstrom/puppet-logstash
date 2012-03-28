@@ -11,6 +11,16 @@ logstash::indexer and logstash::shipper is *not yet* tested on the following dis
 * Ubuntu 10.04
 * Ubuntu 11.10
 
+## Todo
+
+This needs to be fixed before it is usable
+
+* Initscripts
+* Configurations
+* RabbitMQ
+* ElasticSearch
+* grok?
+
 ## Usage
 
 ### Logstash indexer
