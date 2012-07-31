@@ -4,40 +4,27 @@
 #
 # Do not include this class directly in your manifests.
 class logstash::common (
-  $logstash_version = '1.1.0',
-  $logstash_basedir = '/opt'
+  $logstash_version = '1.1.1',
 ) {
   require logstash::params
 
-  File {
-    owner => $logstash::params::user,
-    group => $logstash::params::group,
-    mode  => '0444'
+  $bin_file = "${logstash::params::bin_dir}/logstash-${logstash_version}-monolithic.jar"
+  $source   = "http://semicomplete.com/files/logstash/logstash-${logstash_version}-monolithic.jar"
+
+  package { 'openjdk-7-jre-headless':
+    ensure => present,
   }
 
-  class { 'logstash::user': logstash_homeroot => $logstash_basedir }
-
-  User  <| tag == 'logstash' |>
-  Group <| tag == 'logstash' |>
-
-  file {
-    "${logstash_basedir}/logstash":
-      ensure  => directory,
-      require => User[$logstash::params::user];
-    "${logstash_basedir}/logstash/config":
-      ensure  => directory,
-      require => File["${logstash_basedir}/logstash"];
-    "${logstash_basedir}/logstash/logs":
-      ensure  => directory,
-      require => File["${logstash_basedir}/logstash"];
+  file { $logstash::params::bin_dir:
+    ensure  => directory,
   }
 
-  exec {
-    'download logstash jar':
-      command => "wget http://semicomplete.com/files/logstash/logstash-${logstash_version}-monolithic.jar",
-      path    => ['/usr/bin'],
-      cwd     => "${logstash_basedir}/logstash",
-      require => File["${logstash_basedir}/logstash"],
-      creates => "${logstash_basedir}/logstash/logstash-${logstash_version}-monolithic.jar";
+  exec { 'download logstash jar':
+    command => "wget ${source}",
+    path    => ['/usr/bin'],
+    cwd     => $logstash::params::bin_dir,
+    require => File["${logstash::params::bin_dir}"],
+    creates => $bin_file,
   }
+
 }

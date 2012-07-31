@@ -1,7 +1,15 @@
 # Class: logstash::indexer
 class logstash::indexer {
   require logstash::params
-  include logstash::common
+  require logstash::config
+  require logstash::common
 
-  logstash::initscript { 'logstash-indexer': ensure => present; }
+  logstash::initscript { 'logstash-indexer':
+    ensure => present,
+    config => '/etc/logstash/indexer.conf',
+  }
+
+  logstash::service { 'logstash-indexer':
+    ensure => running,
+  }
 }

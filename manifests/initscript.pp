@@ -1,7 +1,7 @@
 # Define: logstash::initscript
 #
 # Simple wrapper to generate initscripts for logstash-services
-define logstash::initscript ($ensure = undef) {
+define logstash::initscript ($config, $ensure = undef) {
   case $ensure {
     'absent': {
       file { $name: ensure => $ensure; }
@@ -13,7 +13,7 @@ define logstash::initscript ($ensure = undef) {
         owner   => 'root',
         group   => 'root',
         mode    => '0555',
-        content => template('logstash/initscript/logstash-init.erb');
+        content => template('logstash/logstash-init.erb');
       }
     }
   }
