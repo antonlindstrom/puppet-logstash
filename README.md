@@ -50,4 +50,5 @@ This install the following components
 
 ## Other components
 
-Components such as Elasticsearch, grok or RabbitMQ should be installed with their own modules.
+Components such as elasticsearch, grok or redis should be installed with their own
+modules.
