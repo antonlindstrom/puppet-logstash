@@ -18,6 +18,8 @@ class logstash::common (
   file {
     $logstash::params::bin_dir: ensure => directory;
     $logstash::params::etc_dir: ensure => directory;
+    $logstash::params::log_dir: ensure => directory;
+    $logstash::params::run_dir: ensure => directory;
   }
 
   exec { 'download logstash jar':
