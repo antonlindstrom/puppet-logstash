@@ -6,7 +6,7 @@ class logstash::shipper {
   file { '/etc/logstash/shipper.conf':
     ensure  => present,
     source  => 'puppet:///modules/logstash/shipper/shipper.conf',
-    require => File[$logstash::common::etc_dir];
+    require => File[$logstash::params::etc_dir];
   }
 
   logstash::initscript { 'logstash-shipper':
