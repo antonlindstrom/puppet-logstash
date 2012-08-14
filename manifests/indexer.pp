@@ -1,8 +1,13 @@
 # Class: logstash::indexer
 class logstash::indexer {
   require logstash::params
-  require logstash::config
   require logstash::common
+
+  file { '/etc/logstash/indexer.conf':
+    ensure  => present,
+    source  => 'puppet:///modules/logstash/indexer/indexer.conf',
+    require => File[$logstash::common::etc_dir];
+  }
 
   logstash::initscript { 'logstash-indexer':
     ensure => present,

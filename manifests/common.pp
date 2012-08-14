@@ -15,8 +15,9 @@ class logstash::common (
     ensure => present,
   }
 
-  file { $logstash::params::bin_dir:
-    ensure  => directory,
+  file {
+    $logstash::params::bin_dir: ensure => directory;
+    $logstash::params::etc_dir: ensure => directory;
   }
 
   exec { 'download logstash jar':

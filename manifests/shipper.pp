@@ -1,8 +1,13 @@
 # Class: logstash::shipper
 class logstash::shipper {
   require logstash::params
-  require logstash::config
   require logstash::common
+
+  file { '/etc/logstash/shipper.conf':
+    ensure  => present,
+    source  => 'puppet:///modules/logstash/shipper/shipper.conf',
+    require => File[$logstash::common::etc_dir];
+  }
 
   logstash::initscript { 'logstash-shipper':
     ensure => present,
