@@ -6,7 +6,7 @@ class logstash::params {
   $bin_dir = '/usr/local/bin'
   $etc_dir = '/etc/logstash'
   $log_dir = '/var/log/logstash'
-  $pid_dir = '/var/run/logstash'
+  $run_dir = '/var/run/logstash'
   $user    = 'logstash'
   $group   = 'logstash'
 }

@@ -16,7 +16,7 @@ NAME="<%= title %>"
 LOGSTASH_CONF="<%= config %>"
 LOGSTASH_LOG="<%= scope.lookupvar('logstash::params::log_dir') %>/${NAME}.log"
 LOGSTASH_BIN="/usr/bin/java -- -jar <%= scope.lookupvar('logstash::common::bin_file') %>"
-PIDFILE="<%= scope.lookupvar('logstash::params::pid_dir') %>/${NAME}.pid"
+PIDFILE="<%= scope.lookupvar('logstash::params::run_dir') %>/${NAME}.pid"
 CWD=`pwd`
 
 start () {
