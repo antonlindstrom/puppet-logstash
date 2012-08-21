@@ -8,8 +8,9 @@ class logstash::common (
 ) {
   require logstash::params
 
-  $bin_file = "${logstash::params::bin_dir}/logstash-${logstash_version}-monolithic.jar"
-  $source   = "http://semicomplete.com/files/logstash/logstash-${logstash_version}-monolithic.jar"
+  $jar_file = "logstash-${logstash_version}-monolithic.jar"
+  $bin_file = "${logstash::params::bin_dir}/${jar_file}"
+  $source   = "http://semicomplete.com/files/logstash/${jar_file}"
 
   package { 'openjdk-7-jre-headless':
     ensure => present,
@@ -26,7 +27,7 @@ class logstash::common (
     command => "wget ${source}",
     path    => ['/usr/bin'],
     cwd     => $logstash::params::bin_dir,
-    require => File["${logstash::params::bin_dir}"],
+    require => File[$logstash::params::bin_dir],
     creates => $bin_file,
   }
 
